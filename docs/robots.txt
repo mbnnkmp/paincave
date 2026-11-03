@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mbnnkmp.github.io/paincave/sitemap.xml

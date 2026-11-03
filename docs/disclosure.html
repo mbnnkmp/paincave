@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Affiliate Disclosure | PainCave Guide</title>
+<meta name="description" content="How PainCave Guide makes money and how we choose products.">
+<link rel="canonical" href="https://mbnnkmp.github.io/paincave/disclosure.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Saira+Semi+Condensed:wght@600;700&display=swap">
+<style>
+/* Layout: one 46rem reading column with full-width bands; a six-colour power-zone strip is the site's signature. */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --ink:#14181f; --muted:#556070; --line:#dde2ea;
+  --accent:#1f4fd1; --accent-ink:#ffffff; --amz:#f5b324; --amz-ink:#14181f;
+  --good:#1d8a4e; --bad:#c2402a;
+  --z1:#8a94a3; --z2:#2f7de1; --z3:#2fa35c; --z4:#e6b818; --z5:#ee7a1c; --z6:#d6382b;
+  --display:"Saira Semi Condensed","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1218; --surface:#171b23; --ink:#e8ecf2; --muted:#9aa5b5; --line:#2a313d;
+  --accent:#7ea2ff; --accent-ink:#0f1218; --amz:#f5b324; --amz-ink:#14181f;
+  --good:#5cc98b; --bad:#f07a63; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1218; --surface:#171b23; --ink:#e8ecf2; --muted:#9aa5b5; --line:#2a313d;
+  --accent:#7ea2ff; --accent-ink:#0f1218; --amz:#f5b324; --amz-ink:#14181f;
+  --good:#5cc98b; --bad:#f07a63; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.65 var(--body)}
+a{color:var(--accent)}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wide{max-width:64rem}
+header.site{border-bottom:1px solid var(--line);background:var(--surface)}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.25rem;padding-block:.8rem}
+.logo{font:700 1.35rem/1 var(--display);letter-spacing:.02em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo .zones{width:2.2rem;height:.7rem}
+nav.main{display:flex;flex-wrap:wrap;gap:.25rem .9rem;font-size:.9rem}
+nav.main a{color:var(--muted);text-decoration:none}
+nav.main a[aria-current]{color:var(--ink);font-weight:600}
+.zones{display:flex;height:6px;gap:2px}
+.zones i{flex:1;background:var(--z1)}
+.zones i:nth-child(2){background:var(--z2)}.zones i:nth-child(3){background:var(--z3)}
+.zones i:nth-child(4){background:var(--z4)}.zones i:nth-child(5){background:var(--z5)}.zones i:nth-child(6){background:var(--z6)}
+.disclose{font-size:.82rem;color:var(--muted);border-left:3px solid var(--z4);padding:.4rem .8rem;margin:1.2rem 0;background:var(--surface)}
+main{padding-block:1.5rem 3rem}
+h1,h2,h3{font-family:var(--display);line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.1rem);font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.7rem;font-weight:700;margin-top:2.6rem}
+h3{font-size:1.3rem;font-weight:600}
+p{margin:.8rem 0}
+.lead{font-size:1.12rem;color:var(--muted);max-width:40rem}
+.meta{font:500 .78rem/1.4 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.6rem}
+.eyebrow{font:600 .75rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.tablebox{overflow-x:auto;margin:1rem 0;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .74rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.product{background:var(--surface);border:1px solid var(--line);padding:1.2rem;margin:1.4rem 0;display:grid;gap:.6rem}
+.product header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.3rem 1rem}
+.badge{font:600 .72rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:.35rem .5rem;border-left:4px solid var(--z2);background:var(--bg)}
+.badge.z3{border-color:var(--z3)}.badge.z4{border-color:var(--z4)}.badge.z5{border-color:var(--z5)}.badge.z6{border-color:var(--z6)}.badge.z1{border-color:var(--z1)}
+.price{font:600 .95rem var(--mono);font-variant-numeric:tabular-nums}
+.specs{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font:.82rem var(--mono);color:var(--muted);margin:0;padding:0;list-style:none}
+.pc{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.4rem 1.2rem}
+.pc ul{margin:.2rem 0;padding-left:1.1rem;font-size:.93rem}
+.pc h4{margin:0;font:600 .74rem var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.pc .pro h4{color:var(--good)}.pc .con h4{color:var(--bad)}
+.ctas{display:flex;flex-wrap:wrap;gap:.5rem}
+.btn{display:inline-block;padding:.55rem .9rem;font:600 .88rem var(--body);text-decoration:none;border-radius:3px}
+.btn-amz{background:var(--amz);color:var(--amz-ink)}
+.btn-alt{background:var(--accent);color:var(--accent-ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin:1.2rem 0}
+.card{background:var(--surface);border:1px solid var(--line);padding:1.1rem;text-decoration:none;color:var(--ink);display:grid;gap:.4rem;align-content:start}
+.card:hover{border-color:var(--accent)}
+.card p{margin:0;color:var(--muted);font-size:.93rem}
+.picks{display:grid;gap:0;border:1px solid var(--line);background:var(--surface);margin:1rem 0}
+.picks div{display:grid;grid-template-columns:9rem 1fr;gap:.8rem;padding:.6rem .9rem;border-bottom:1px solid var(--line)}
+.picks div:last-child{border-bottom:0}
+.picks b{font:600 .74rem/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+@media (max-width:30rem){.picks div{grid-template-columns:1fr;gap:.1rem}}
+.note{background:var(--surface);border:1px solid var(--line);padding:.9rem 1rem;font-size:.93rem}
+.hero{padding-block:1rem .5rem}
+.photo{margin:1.4rem 0;display:grid;gap:.35rem}
+.photo img{width:100%;max-width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block;background:var(--line)}
+.photo figcaption{font:.75rem/1.4 var(--mono);color:var(--muted)}
+.photo figcaption a{color:var(--muted)}
+.lead-photo{margin-top:.4rem}
+.card{padding:0;overflow:hidden}
+.card .card-img{width:100%;max-width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block;background:var(--line)}
+.card .card-body{padding:1rem 1.1rem 1.1rem;display:grid;gap:.4rem}
+.hero .zones{height:10px;margin-bottom:1.4rem;max-width:20rem}
+footer.site{border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+footer.site .wrap{padding-block:1.4rem;display:grid;gap:.5rem}
+footer.site a{color:var(--muted)}
+ol.steps li,ul.tight li{margin:.3rem 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><header class="site"><div class="wrap wide">
+<a class="logo" href="index.html"><div class="zones" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>PainCave Guide</a>
+<nav class="main" aria-label="Main"><a href="index.html">Start</a><a href="smart-bike-vs-turbo-trainer.html">Bike vs trainer</a><a href="best-indoor-bikes-uk.html">Best bikes</a><a href="rocker-plates.html">Rocker plates</a><a href="indoor-cycling-apps.html">Apps</a><a href="indoor-cycling-accessories.html">Accessories</a></nav></div></header>
+<main><div class="wrap">
+<h1>Affiliate disclosure</h1>
+<p class="lead">How this site is funded and how we choose what to recommend.</p>
+<p class="meta">Updated 2 November 2026</p>
+
+
+<p>PainCave Guide is reader-supported. When you buy through some links on this site we may earn a commission, at no extra cost to you. As an Amazon Associate we earn from qualifying purchases. We may also earn from other retailers and brands.</p>
+<p>Commission never decides what we recommend. Our guides are based on manufacturer specifications, UK retailer listings and independent tests by established cycling publications, which we link to. Where we have tested a product ourselves we say so.</p>
+<p>Prices are guides checked on the date shown on each page. They change often, especially in November and January, so always check the retailer before you buy.</p>
+<h2>Photo credits</h2>
+<p>Photos are from <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash</a> and <a href="https://www.pexels.com/license/" target="_blank" rel="noopener">Pexels</a> and used under their licences, which allow free commercial use. Diagrams are our own. We credit each photographer:</p>
+<ul class="tight"><li><a href="https://unsplash.com/photos/man-riding-on-gray-rigid-bicycle-near-window-jsZ4kncM0YE" target="_blank" rel="noopener">David Hellmann</a> on Unsplash: Cyclist training on a road bike on a smart trainer at home beside a window and plants</li><li><a href="https://unsplash.com/photos/man-riding-road-bike-on-trainer-61vcI5fYLg8" target="_blank" rel="noopener">gabbiistudios</a> on Unsplash: Rider in cycling kit on a road bike mounted to a direct-drive smart trainer</li><li><a href="https://unsplash.com/photos/person-cycling-on-indoor-trainer-_JSz9C5B0Bg" target="_blank" rel="noopener">gabbiistudios</a> on Unsplash: Close-up of a road bike drivetrain on a direct-drive trainer</li><li><a href="https://unsplash.com/photos/a-stationary-bike-sits-on-a-rug-in-front-of-a-curtain-2pqPojBNq0Y" target="_blank" rel="noopener">Abhishek Dutta</a> on Unsplash: Spin-style exercise bike on a rug in a bright living room</li><li><a href="https://unsplash.com/photos/person-in-black-shorts-sitting-on-black-and-red-stationary-bike-dCXEbN6ubR4" target="_blank" rel="noopener">Algi</a> on Unsplash: Rider's view of a handlebar with a tablet showing a virtual cycling app</li><li><a href="https://www.pexels.com/photo/black-bike-on-a-bike-stand-10347812/" target="_blank" rel="noopener">Flo Dahm</a> on Pexels: Home pain cave with a road bike on a direct-drive smart trainer, a tablet stand and a track pump</li><li><a href="https://www.pexels.com/photo/black-and-blue-bicycle-on-white-floor-tiles-4620527/" target="_blank" rel="noopener">Flo Dahm</a> on Pexels: Road bike on a wheel-on trainer facing a wall-mounted TV showing a virtual cycling app</li><li><a href="https://unsplash.com/photos/a-close-up-of-a-bike-with-a-logo-on-it-sLShO-2RiVI" target="_blank" rel="noopener">Lee Ajaye</a> on Unsplash: Close-up of a Wahoo smart trainer fitted to a Bianchi road bike</li><li><a href="https://unsplash.com/photos/man-in-black-jacket-and-black-pants-riding-bicycle-2yQX9D54Eto" target="_blank" rel="noopener">Giorgio Trovato</a> on Unsplash: Indoor bike in front of a large glowing screen in a dark training studio</li></ul>
+
+</div></main>
+<footer class="site"><div class="wrap wide">
+<div class="zones" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div>PainCave Guide is an independent UK guide to indoor cycling. <a href="disclosure.html">Affiliate disclosure</a></div>
+<div>Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</div>
+</div></footer></body></html>
