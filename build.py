@@ -1,13 +1,13 @@
-"""Builds the PainCave Guide static site. Run: python3 build.py
-Pages are written to docs/, which GitHub Pages serves. Settings (Amazon tag, site URL) are at the top.
+"""Builds the PainCave Insider static site. Run: python3 build.py
+Pages are written to docs/, which GitHub Pages serves. Settings (Amazon tag, site URL) are at the top."""
 import os, re, html
 from datetime import date
 from urllib.parse import quote_plus
 
 AMAZON_TAG = "paincavetips-21"
 # Public address of the site. Change this if you add a custom domain.
-SITE_URL = "https://mbnnkmp.github.io/paincave/"
-SITE = "PainCave Guide"
+SITE_URL = "https://paincaveinsider.co.uk/"
+SITE = "PainCave Insider"
 UPDATED = "2 November 2026"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
 
@@ -49,7 +49,7 @@ PHOTOS = {
 
 def credit(who, url, src):
     if src == "own":
-        return "Illustration: PainCave Guide"
+        return "Illustration: PainCave Insider"
     return f'Photo: <a href="{url}" target="_blank" rel="noopener">{who}</a> on {src}'
 
 
@@ -226,7 +226,7 @@ PAGES = {}
 
 # ---------------------------------------------------------------- HOME
 PAGES["index.html"] = dict(
-    title="PainCave Guide | Indoor cycling setups for UK riders",
+    title="PainCave Insider | Indoor cycling setups for UK riders",
     desc="Independent UK guide to smart bikes, turbo trainers, rocker plates, cycling apps and accessories for your home pain cave.",
     h1="Build a pain cave that you'll actually use",
     lead="Straight answers for UK riders setting up indoor training: which bike or trainer, which app, and which accessories make the difference between three rides and three hundred.",
@@ -677,13 +677,13 @@ PAGES["indoor-cycling-accessories.html"] = dict(
 CREDITS = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{w}</a> on {src}: {a}</li>' for a, w, u, src in PHOTOS.values() if src != "own")
 
 PAGES["disclosure.html"] = dict(
-    title="Affiliate Disclosure | PainCave Guide",
-    desc="How PainCave Guide makes money and how we choose products.",
+    title="Affiliate Disclosure | PainCave Insider",
+    desc="How PainCave Insider makes money and how we choose products.",
     h1="Affiliate disclosure",
     lead="How this site is funded and how we choose what to recommend.",
     show_disclosure=False,
     body="""
-<p>PainCave Guide is reader-supported. When you buy through some links on this site we may earn a commission, at no extra cost to you. As an Amazon Associate we earn from qualifying purchases. We may also earn from other retailers and brands.</p>
+<p>PainCave Insider is reader-supported. When you buy through some links on this site we may earn a commission, at no extra cost to you. As an Amazon Associate we earn from qualifying purchases. We may also earn from other retailers and brands.</p>
 <p>Commission never decides what we recommend. Our guides are based on manufacturer specifications, UK retailer listings and independent tests by established cycling publications, which we link to. Where we have tested a product ourselves we say so.</p>
 <p>Prices are guides checked on the date shown on each page. They change often, especially in November and January, so always check the retailer before you buy.</p>
 <h2>Photo credits</h2>
@@ -707,6 +707,9 @@ def build():
     with open(os.path.join(OUT, "robots.txt"), "w") as fh:
         fh.write(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n")
     open(os.path.join(OUT, ".nojekyll"), "w").close()
+    # Custom domain for GitHub Pages (must match the domain in the repo's Pages settings)
+    with open(os.path.join(OUT, "CNAME"), "w") as fh:
+        fh.write(SITE_URL.split("//")[1].strip("/") + "\n")
     print("built", len(PAGES), "pages to", OUT)
 
 

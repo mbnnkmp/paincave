@@ -1,8 +1,8 @@
-# PainCave Guide
+# PainCave Insider
 
 An independent UK guide to indoor cycling: smart bikes vs turbo trainers, the best indoor bikes, rocker plates, cycling apps and accessories. Amazon links use the tag `paincavetips-21`.
 
-Live site: https://mbnnkmp.github.io/paincave/
+Live site: https://paincaveinsider.co.uk/
 
 ## How it works
 
