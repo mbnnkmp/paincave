@@ -7,6 +7,8 @@ from urllib.parse import quote_plus
 AMAZON_TAG = "paincavetips-21"
 # Public address of the site. Change this if you add a custom domain.
 SITE_URL = "https://paincaveinsider.co.uk/"
+# Google Analytics measurement ID. Set to "" to remove the tag from every page.
+GA_ID = "G-JPT0ECZ6Q5"
 SITE = "PainCave Insider"
 UPDATED = "2 November 2026"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
@@ -188,6 +190,20 @@ def table(head, rows):
     return f'<div class="tablebox"><table><thead><tr>{th}</tr></thead><tbody>{trs}</tbody></table></div>'
 
 
+def ga_tag():
+    if not GA_ID:
+        return ""
+    return f"""<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+
+  gtag('config', '{GA_ID}');
+</script>"""
+
+
 def page(fname, title, desc, body, h1, lead, show_disclosure=True):
     nav = "".join(
         (f'<a href="{h}" aria-current="page">{t}</a>' if h == fname else f'<a href="{h}">{t}</a>') for h, t in NAV)
@@ -213,6 +229,7 @@ def page(fname, title, desc, body, h1, lead, show_disclosure=True):
     full = f"""<!doctype html>
 <html lang="en-GB"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+{ga_tag()}
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(desc)}">
 <link rel="canonical" href="{SITE_URL}{"" if fname == "index.html" else fname}">
