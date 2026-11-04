@@ -1,14 +1,20 @@
 <!doctype html>
 <html lang="en-GB"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPT0ECZ6Q5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-JPT0ECZ6Q5');
+  window.pcLoadGA = function () {
+    if (window.pcGALoaded) return;
+    window.pcGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-JPT0ECZ6Q5';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-JPT0ECZ6Q5');
+  };
+  try { if (localStorage.getItem('pc-consent') === 'granted') window.pcLoadGA(); } catch (e) {}
 </script>
 <title>Best Indoor Bikes and Smart Trainers UK (2026)</title>
 <meta name="description" content="The best smart bikes and direct-drive turbo trainers in the UK for 2026, from £280 to £3,500, with UK prices, specs, pros and cons.">
@@ -103,6 +109,14 @@ tr:last-child td{border-bottom:0}
 footer.site{border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
 footer.site .wrap{padding-block:1.4rem;display:grid;gap:.5rem}
 footer.site a{color:var(--muted)}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
+.linkbtn:focus-visible,.cookie-banner button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.12);padding-bottom:env(safe-area-inset-bottom,0px)}
+.cookie-inner{max-width:64rem;margin:0 auto;padding-block:.9rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1.2rem}
+.cookie-inner p{margin:0;flex:1 1 22rem;font-size:.9rem}
+.cookie-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.cookie-banner .btn{border:0;cursor:pointer}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)!important}
 ol.steps li,ul.tight li{margin:.3rem 0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head>
@@ -252,6 +266,42 @@ ol.steps li,ul.tight li{margin:.3rem 0}
 </div></main>
 <footer class="site"><div class="wrap wide">
 <div class="zones" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<div>PainCave Insider is an independent UK guide to indoor cycling. <a href="disclosure.html">Affiliate disclosure</a></div>
+<div>PainCave Insider is an independent UK guide to indoor cycling. <a href="disclosure.html">Affiliate disclosure</a> · <a href="privacy.html">Privacy and cookies</a> · <button type="button" class="linkbtn" data-cookie-settings>Cookie settings</button></div>
 <div>Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</div>
-</div></footer></body></html>
+</div></footer>
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie choice" hidden>
+<div class="cookie-inner">
+<p>We'd like to use Google Analytics cookies to see which guides people read, so we can improve them. They're only set if you accept. <a href="privacy.html">Privacy and cookies</a></p>
+<div class="cookie-actions">
+<button type="button" class="btn btn-alt" id="cookie-accept">Accept analytics</button>
+<button type="button" class="btn btn-ghost" id="cookie-reject">Reject</button>
+</div></div></div>
+<script>
+(function () {
+  var banner = document.getElementById('cookie-banner');
+  function get() { try { return localStorage.getItem('pc-consent'); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem('pc-consent', v); } catch (e) {} }
+  function clearGA() {
+    var host = location.hostname.replace(/^www\./, '');
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (/^_ga/.test(name)) {
+        ['', '.' + host, host].forEach(function (d) {
+          document.cookie = name + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+        });
+      }
+    });
+  }
+  if (!get()) banner.hidden = false;
+  document.getElementById('cookie-accept').addEventListener('click', function () {
+    set('granted'); banner.hidden = true; if (window.pcLoadGA) window.pcLoadGA();
+  });
+  document.getElementById('cookie-reject').addEventListener('click', function () {
+    var was = get(); set('denied'); banner.hidden = true; clearGA();
+    if (was === 'granted') location.reload();
+  });
+  document.querySelectorAll('[data-cookie-settings]').forEach(function (b) {
+    b.addEventListener('click', function () { banner.hidden = false; document.getElementById('cookie-accept').focus(); });
+  });
+})();
+</script></body></html>

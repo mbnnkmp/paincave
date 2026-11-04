@@ -9,6 +9,8 @@ AMAZON_TAG = "paincavetips-21"
 SITE_URL = "https://paincaveinsider.co.uk/"
 # Google Analytics measurement ID. Set to "" to remove the tag from every page.
 GA_ID = "G-JPT0ECZ6Q5"
+# Shown on the privacy page so visitors can contact you about their data. Leave "" to hide the line.
+CONTACT_EMAIL = ""
 SITE = "PainCave Insider"
 UPDATED = "2 November 2026"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
@@ -160,6 +162,14 @@ tr:last-child td{border-bottom:0}
 footer.site{border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
 footer.site .wrap{padding-block:1.4rem;display:grid;gap:.5rem}
 footer.site a{color:var(--muted)}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
+.linkbtn:focus-visible,.cookie-banner button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.12);padding-bottom:env(safe-area-inset-bottom,0px)}
+.cookie-inner{max-width:64rem;margin:0 auto;padding-block:.9rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1.2rem}
+.cookie-inner p{margin:0;flex:1 1 22rem;font-size:.9rem}
+.cookie-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.cookie-banner .btn{border:0;cursor:pointer}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)!important}
 ol.steps li,ul.tight li{margin:.3rem 0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 """
@@ -191,16 +201,61 @@ def table(head, rows):
 
 
 def ga_tag():
+    """Google Analytics, loaded only after the visitor accepts analytics cookies."""
     if not GA_ID:
         return ""
-    return f"""<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
-<script>
+    return f"""<script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){{dataLayer.push(arguments);}}
-  gtag('js', new Date());
+  window.pcLoadGA = function () {{
+    if (window.pcGALoaded) return;
+    window.pcGALoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id={GA_ID}';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', '{GA_ID}');
+  }};
+  try {{ if (localStorage.getItem('pc-consent') === 'granted') window.pcLoadGA(); }} catch (e) {{}}
+</script>"""
 
-  gtag('config', '{GA_ID}');
+
+COOKIE_BANNER = """<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie choice" hidden>
+<div class="cookie-inner">
+<p>We'd like to use Google Analytics cookies to see which guides people read, so we can improve them. They're only set if you accept. <a href="privacy.html">Privacy and cookies</a></p>
+<div class="cookie-actions">
+<button type="button" class="btn btn-alt" id="cookie-accept">Accept analytics</button>
+<button type="button" class="btn btn-ghost" id="cookie-reject">Reject</button>
+</div></div></div>
+<script>
+(function () {
+  var banner = document.getElementById('cookie-banner');
+  function get() { try { return localStorage.getItem('pc-consent'); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem('pc-consent', v); } catch (e) {} }
+  function clearGA() {
+    var host = location.hostname.replace(/^www\\./, '');
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (/^_ga/.test(name)) {
+        ['', '.' + host, host].forEach(function (d) {
+          document.cookie = name + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+        });
+      }
+    });
+  }
+  if (!get()) banner.hidden = false;
+  document.getElementById('cookie-accept').addEventListener('click', function () {
+    set('granted'); banner.hidden = true; if (window.pcLoadGA) window.pcLoadGA();
+  });
+  document.getElementById('cookie-reject').addEventListener('click', function () {
+    var was = get(); set('denied'); banner.hidden = true; clearGA();
+    if (was === 'granted') location.reload();
+  });
+  document.querySelectorAll('[data-cookie-settings]').forEach(function (b) {
+    b.addEventListener('click', function () { banner.hidden = false; document.getElementById('cookie-accept').focus(); });
+  });
+})();
 </script>"""
 
 
@@ -223,9 +278,10 @@ def page(fname, title, desc, body, h1, lead, show_disclosure=True):
 </div></main>
 <footer class="site"><div class="wrap wide">
 {ZONES}
-<div>{SITE} is an independent UK guide to indoor cycling. <a href="disclosure.html">Affiliate disclosure</a></div>
+<div>{SITE} is an independent UK guide to indoor cycling. <a href="disclosure.html">Affiliate disclosure</a> · <a href="privacy.html">Privacy and cookies</a> · <button type="button" class="linkbtn" data-cookie-settings>Cookie settings</button></div>
 <div>Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</div>
-</div></footer>"""
+</div></footer>
+{COOKIE_BANNER if GA_ID else ""}"""
     full = f"""<!doctype html>
 <html lang="en-GB"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -708,6 +764,38 @@ PAGES["disclosure.html"] = dict(
 <ul class="tight">""" + CREDITS + """</ul>
 """)
 
+
+PAGES["privacy.html"] = dict(
+    title="Privacy and Cookies | PainCave Insider",
+    desc="What PainCave Insider collects, which cookies it uses, and how to change your choice.",
+    h1="Privacy and cookies",
+    lead="What this site collects, the cookies it uses, and how to change your mind.",
+    show_disclosure=False,
+    body="""
+<h2>What we collect</h2>
+<p>We don't ask for your name, email or any account details. If you accept analytics cookies, Google Analytics records how the site is used: which pages are visited, roughly where visitors are (country or city level), the device and browser, and how people arrived. We use this only to see which guides are useful and to improve them.</p>
+<p>If you reject analytics cookies, Google Analytics doesn't load and nothing is recorded.</p>
+
+<h2>Cookies we use</h2>
+<div class="tablebox"><table><thead><tr><th>Cookie</th><th>Set by</th><th>Purpose</th><th>Lasts</th></tr></thead><tbody>
+<tr><td>_ga</td><td>Google Analytics</td><td>Tells visits apart so we can count visitors</td><td>2 years</td></tr>
+<tr><td>_ga_&lt;ID&gt;</td><td>Google Analytics</td><td>Keeps track of the current session</td><td>2 years</td></tr>
+</tbody></table></div>
+<p>Analytics cookies are only set after you click <b>Accept analytics</b>. Your choice itself is saved in your browser's local storage (not a cookie) so we don't ask again on every page.</p>
+
+<h2>Change your choice</h2>
+<p><button type="button" class="btn btn-alt" data-cookie-settings>Change cookie settings</button></p>
+<p>If you switch from accepting to rejecting, we delete the analytics cookies from this site straight away.</p>
+
+<h2>Affiliate links</h2>
+<p>When you click a link to Amazon or another retailer, you leave this site. That retailer may set its own cookies, for example so Amazon knows you came from us. Their privacy policies cover what they do; see <a href="https://www.amazon.co.uk/gp/help/customer/display.html?nodeId=201909010" target="_blank" rel="noopener">Amazon's privacy notice</a>.</p>
+
+<h2>Google Analytics</h2>
+<p>Google processes analytics data on our behalf. You can read <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">how Google uses data from sites that use its services</a>, or install Google's <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">opt-out browser add-on</a>.</p>
+
+<h2>Your rights</h2>
+<p>Under UK data protection law you can ask what data is held about you and ask for it to be deleted. You can also complain to the <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">Information Commissioner's Office</a>.</p>
+""" + (f'<p>Contact: <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></p>' if CONTACT_EMAIL else ""))
 
 def build():
     os.makedirs(OUT, exist_ok=True)
